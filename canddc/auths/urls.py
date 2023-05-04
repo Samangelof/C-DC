@@ -1,15 +1,12 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
-
-from .conf import ADMIN_SITE_URL
 
 
 urlpatterns = [
     
-    path(ADMIN_SITE_URL, admin.site.urls),
-    path('api/v1/', include('auths.urls')),
+    # path('/', ...),
 ]
 
 if settings.DEBUG:

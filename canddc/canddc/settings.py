@@ -12,15 +12,14 @@ ALLOWED_HOSTS = []
 
 # ------------------------------------------------
 # Path
-BASE_DIR = Path(__file__).resolve().parent.parent
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(BASE_DIR)
-sys.path.append(os.path.join(BASE_DIR, 'apps'))
-
-
 
 
 # ------------------------------------------------
 # Apps
+
 DJANGO_AND_THIRD_PARTY_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -32,7 +31,9 @@ DJANGO_AND_THIRD_PARTY_APPS = [
     'rest_framework',
 ]
 
-PROJECT_APPS = []
+PROJECT_APPS = [
+    'auths',
+]
 
 INSTALLED_APPS = DJANGO_AND_THIRD_PARTY_APPS + PROJECT_APPS
 
@@ -96,7 +97,15 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # ------------------------------------------------
 # Rest
-...
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ]
+}
 
 
 # ------------------------------------------------
@@ -107,7 +116,7 @@ TIME_ZONE = 'Asia/Almaty'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
@@ -116,3 +125,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = "auths.CustomUser" 
